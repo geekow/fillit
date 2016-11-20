@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/15 19:31:17 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/20 20:55:19 by jjacobi          ###   ########.fr       */
+/*   Created: 2016/11/20 18:39:56 by jjacobi           #+#    #+#             */
+/*   Updated: 2016/11/20 20:46:33 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "fillit.h"
+#ifndef FILLIT_H
+# define FILLIT_H
 
-int	main(int argc, char **argv)
-{	
-	t_list	*list;
+t_list	*stock_tetri(char *file_name);
 
-	if (argc != 2)
-		ft_putstr_fd("usage: fillit source_file\n", 2);
-	else
-	{
-		if ((list = stock_tetri(argv[1])) != NULL)
-		{
-			// DO PROGRAM
-			return (0);
-		}
-		ft_putstr("error\n");
-		return (0);
-	}
-	return (0);
-}
+#endif
