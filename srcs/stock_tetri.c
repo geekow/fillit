@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 18:34:45 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/20 22:03:43 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/11/20 22:56:04 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,19 @@
 static t_list	*check_tetri(char *tocheck)
 {
 	t_list	*result;
+	int		len;
 
+	len = ft_strlen(tocheck);
+	ft_putstr(tocheck);
+	if (len == 21)
+	{
+		if (tocheck[20] != '\n')
+			return (NULL);
+	}
+	if (len == 20)
+		return ((t_list*) 1);
 	result = NULL;
-	return (result);
+	return ((t_list*) 1);
 }
 
 static t_list	*read_and_save(int fd)
@@ -30,6 +40,8 @@ static t_list	*read_and_save(int fd)
 	tmp = read(fd, &buf, 21);
 	buf[tmp] = '\0';
 	result = check_tetri(buf);
+	if (result == NULL)
+		return (NULL);
 	while ((tmp = read(fd, &buf, 21)))
 	{
 		buf[tmp] = '\0';
