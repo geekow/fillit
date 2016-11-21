@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 16:26:50 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/21 20:35:55 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/11/21 20:56:32 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 #include "stdio.h"
 
-static int	put_tetri(char **result, size_t i, size_t j, int coord[4][2],
-		char towrite)
+static int	put_tetri(char **result, size_t pos[2], int coord[4][2],
+						char towrite)
 {
-	if ((!result[i + coord[1][0]]) || (!result[i + coord[2][0]]) ||
-			(!result[i + coord[3][0]]))
+	if ((!result[pos[0] + coord[1][0]]) || (!result[pos[0] + coord[2][0]]) ||
+			(!result[pos[0] + coord[3][0]]))
 		return (0);
-	if (result[i + coord[0][0]][j + coord[0][1]] == '.' &&
-		result[i + coord[1][0]][j + coord[1][1]] == '.' &&
-		result[i + coord[2][0]][j + coord[2][1]] == '.' &&
-		result[i + coord[3][0]][j + coord[3][1]] == '.')
+	if (result[pos[0] + coord[0][0]][pos[1] + coord[0][1]] == '.' &&
+		result[pos[0] + coord[1][0]][pos[1] + coord[1][1]] == '.' &&
+		result[pos[0] + coord[2][0]][pos[1] + coord[2][1]] == '.' &&
+		result[pos[0] + coord[3][0]][pos[1] + coord[3][1]] == '.')
 	{
-		result[i + coord[0][0]][j + coord[0][1]] = towrite;
-		result[i + coord[1][0]][j + coord[1][1]] = towrite;
-		result[i + coord[2][0]][j + coord[2][1]] = towrite;
-		result[i + coord[3][0]][j + coord[3][1]] = towrite;
+		result[pos[0] + coord[0][0]][pos[1] + coord[0][1]] = towrite;
+		result[pos[0] + coord[1][0]][pos[1] + coord[1][1]] = towrite;
+		result[pos[0] + coord[2][0]][pos[1] + coord[2][1]] = towrite;
+		result[pos[0] + coord[3][0]][pos[1] + coord[3][1]] = towrite;
 		return (1);
 	}
 	return (0);
@@ -37,25 +37,24 @@ static int	put_tetri(char **result, size_t i, size_t j, int coord[4][2],
 static char	**try_to_place(t_list *list, char **result, char towrite)
 {
 	int		coord[4][2];
-	size_t	i;
-	size_t	j;
+	size_t	pos[2];
 
 	if (!list)
-		return (NULL);
+		return (result);
 	ft_memcpy((void*)coord, list->content, (sizeof(int) * 8));
-	i = 0;
-	while (result[i])
+	pos[0] = 0;
+	while (result[pos[0]])
 	{
-		j = 0;
-		while (result[i][j])
+		pos[1] = 0;
+		while (result[pos[0]][pos[1]])
 		{
-			if (put_tetri(result, i, j, coord, towrite))
+			if (put_tetri(result, pos, coord, towrite))
 				return (try_to_place(list->next, result, towrite + 1));
-			j++;
+			pos[1] = pos[1] + 1;
 		}
-		i++;
+		pos[0] = pos[0] + 1;
 	}
-	return (result);
+	return (NULL);
 }
 
 static char	**calc_tab(size_t nb_tetri, size_t nb_try)
