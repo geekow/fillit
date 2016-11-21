@@ -35,22 +35,22 @@ DEFAULT		= \033[37m
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "$(DEFAULT)"
+	@echo -e "$(DEFAULT)"
 	@ar rc $@ $^
 	@ar -s $@
-	@echo "$(GREEN)$(NAME)$(DEFAULT) created."
+	@echo -e "$(GREEN)$(NAME)$(DEFAULT) created."
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c -o $@ $<
-	@echo "$(GREEN). \c"
+	@echo -e "$(GREEN). \c"
 
 clean:
 	@rm -rf $(OBJ)
-	@echo "All $(RED).o$(DEFAULT) are now deleted."
+	@echo -e "All $(RED).o$(DEFAULT) are now deleted."
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo "$(RED)$(NAME)$(DEFAULT) is now deleted."
+	@echo -e "$(RED)$(NAME)$(DEFAULT) is now deleted."
 
 re: fclean all
 

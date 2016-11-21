@@ -30,26 +30,26 @@ all: $(NAME)
 
 $(NAME): $(OBJ) libft.a
 	@$(CC) $(FLAGS) -o $@ $(OBJ) $(LIBFT_PATH)/libft.a -I $(H_DIR)
-	@echo "$(GREEN)$(NAME)$(DEFAULT) created."
+	@echo -e "$(GREEN)$(NAME)$(DEFAULT) created."
 
 libft.a:
-	@echo "$(DEFAULT)"
+	@echo -e "$(DEFAULT)"
 	@(cd $(LIBFT_PATH) && $(MAKE))
 
 %.o: $(SRC_FOLDER)/%.c
 	@$(CC) $(FLAGS) -c -o $@ $< -I $(H_DIR)
-	@echo "$(GREEN). \c"
+	@echo -e "$(GREEN). \c"
 
 clean:
 	@rm -rf $(OBJ)
 	@(cd $(LIBFT_PATH) && $(MAKE) $@)
-	@echo "$(RED).o $(DEFAULT) are now deleted for $(NAME)."
+	@echo -e "$(RED).o $(DEFAULT) are now deleted for $(NAME)."
 
 fclean:
 	@rm -rf $(NAME) $(OBJ)
 	@(cd $(LIBFT_PATH) && $(MAKE) $@)
-	@echo "$(RED).o $(DEFAULT) are now deleted for $(NAME)."
-	@echo "$(RED)$(NAME)$(DEFAULT) deleted."
+	@echo -e "$(RED).o $(DEFAULT) are now deleted for $(NAME)."
+	@echo -e "$(RED)$(NAME)$(DEFAULT) deleted."
 
 re: fclean all
 
