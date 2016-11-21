@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 11:02:51 by jjacobi           #+#    #+#              #
-#    Updated: 2016/11/20 20:56:19 by jjacobi          ###   ########.fr        #
+#    Updated: 2016/11/21 16:53:25 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		= fillit
 CC			= gcc
 FLAGS		= -Wall -Wextra -Werror
 
-SRC_FILES	= main.c stock_tetri.c
+SRC_FILES	= main.c stock_tetri.c fillit.c
 OBJ			= $(SRC_FILES:.c=.o)
 
 H_DIR		= ./includes

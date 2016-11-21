@@ -6,14 +6,12 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 18:34:45 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/21 15:54:02 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/11/21 18:07:36 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fcntl.h"
-
-#include "stdio.h"
 
 static t_list	*reg_tetri(char *buf, size_t blocks, size_t connections)
 {
@@ -93,24 +91,23 @@ static t_list	*check_buf(char *tocheck)
 		return (NULL);
 }
 
-static t_list	*read_and_save(int fd)
+static t_list	*read_and_save(int fd, size_t *nb_tetri)
 {
 	t_list	*result;
 	t_list	*cache;
 	char	buf[21];
 	size_t	tmp;
-	size_t	nb_tetri;
 
 	tmp = read(fd, &buf, 21);
 	buf[tmp] = '\0';
 	result = check_buf(buf);
 	cache = result;
-	nb_tetri = 1;
+	*nb_tetri = 1;
 	if (result == NULL)
 		return (NULL);
-	while ((tmp = read(fd, &buf, 21)))
+	while (tmp != 20 && (tmp = read(fd, &buf, 21)))
 	{
-		if (++nb_tetri > 26)
+		if ((*nb_tetri = *nb_tetri + 1) > 26)
 			return (NULL);
 		buf[tmp] = '\0';
 		cache->next = check_buf(buf);
@@ -118,17 +115,19 @@ static t_list	*read_and_save(int fd)
 			return (NULL);
 		cache = cache->next;
 	}
+	if (tmp != 20)
+		return (NULL);
 	return (result);
 }
 
-t_list			*stock_tetri(char *filename)
+t_list			*stock_tetri(char *filename, size_t *nb_tetri)
 {
 	int		fd;
 	t_list	*result;
 
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		return (NULL);
-	if ((result = read_and_save(fd)) == NULL)
+	if ((result = read_and_save(fd, nb_tetri)) == NULL)
 		return (NULL);
 	return (result);
 }
