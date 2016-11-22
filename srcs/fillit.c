@@ -99,7 +99,7 @@ static int	put_tetri(char **r,  int c[4][2], char towrite, t_list **begin)
 		return (0);
 }
 
-static char	**try_to_place(t_list **begin, char **result, char nb, int loop)
+char	**try_to_place(t_list **begin, char **result, char nb, int loop)
 {
 	int	coord[4][2];
 	char	index;
@@ -159,7 +159,7 @@ void		fillit(t_list *list, size_t nb_tetri)
 
 	result = NULL;
 	index = 0;
-	if (!result) /** replace with while **/
+	while (!result)
 	{
 		result = calc_tab(nb_tetri, index++);
 		result = try_to_place(&list, result, 0, 1);

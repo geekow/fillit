@@ -25,10 +25,9 @@
 			r[p[0] + c[1][0]][p[1] + c[1][1]] = towrite; \
 			r[p[0] + c[2][0]][p[1] + c[2][1]] = towrite; \
 			r[p[0] + c[3][0]][p[1] + c[3][1]] = towrite; \
-			ft_putchar(towrite);
 
-t_list		*stock_tetri(char *file_name, size_t *nb_tetri);
-void		fillit(t_list *list, size_t nb_tetri);
-static char	**try_to_place(t_list **begin, char **result, char nb, int loop);
+t_list	*stock_tetri(char *file_name, size_t *nb_tetri);
+void	fillit(t_list *list, size_t nb_tetri);
+char	**try_to_place(t_list **begin, char **result, char nb, int l);
 
 #endif
