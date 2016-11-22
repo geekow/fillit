@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 11:02:51 by jjacobi           #+#    #+#              #
-#    Updated: 2016/11/19 15:19:14 by jjacobi          ###   ########.fr        #
+#    Updated: 2016/11/22 17:03:54 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,22 +35,22 @@ DEFAULT		= \033[37m
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo -e "$(DEFAULT)"
+	@echo "$(DEFAULT)"
 	@ar rc $@ $^
 	@ar -s $@
-	@echo -e "$(GREEN)$(NAME)$(DEFAULT) created."
+	@echo "$(GREEN)$(NAME)$(DEFAULT) created."
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c -o $@ $<
-	@echo -e "$(GREEN). \c"
+	@echo "$(GREEN). \c"
 
 clean:
 	@rm -rf $(OBJ)
-	@echo -e "All $(RED).o$(DEFAULT) are now deleted."
+	@echo "All $(RED).o$(DEFAULT) are now deleted."
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo -e "$(RED)$(NAME)$(DEFAULT) is now deleted."
+	@echo "$(RED)$(NAME)$(DEFAULT) is now deleted."
 
 re: fclean all
 

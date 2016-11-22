@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 16:26:50 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/21 20:56:32 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/11/22 19:22:25 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,68 +60,31 @@ static int	already_placed(char **r, char to_find)
 	return (0);
 }
 
-static int	put_tetri(char **r,  int c[4][2], char towrite, t_list **begin)
+int			put_tetri(char **r, int c[4][2], char towrite, t_list **begin)
 {
 	size_t	p[2];
 	char	exit;
 
 	p[0] = 0;
-	towrite += 'A';
 	exit = 0;
 	if (already_placed(r, towrite))
 		return (1);
-	while (r[p[0]] && !exit)
+	while (r[p[0]] && !exit && !(p[1] = 0))
 	{
-		p[1] = 0;
 		while (r[p[0]][p[1]] && !exit)
-		{
-			if (CHECK_NO_OVERFLOW())
+			if (check_no_overflow(r, p, c))
 				exit = 1;
-			else if (CHECK_SPACE_FOR_TETRI())
-			{
-				PUT_TETRI()
+			else if (check_and_put_tetri(r, p, c, towrite))
 				return (1);
-			}
 			else
 				p[1] = p[1] + 1;
-		}
 		p[0] = p[0] + 1;
 	}
 	exit = rm_from_matrice(r, towrite - 1, 0);
-	if (put_tetri(r, c, towrite, begin))
-	{
-		if (try_to_place(begin, r, towrite - 1 - 'A', 0))
-			return (1);
-		else
-			return (0);
-	}
-	else
-		return (0);
-}
-
-char	**try_to_place(t_list **begin, char **result, char nb, int loop)
-{
-	int	coord[4][2];
-	char	index;
-	t_list	*list;
-	
-	index = 0;
-	list = *begin;
-	while (list && index < nb)
-	{
-		list = list->next;
-		index++;
-	}
-	if (!list)
-		return (result);
-	ft_memcpy((void*)coord, list->content, (sizeof(int) * 8));
-	if (put_tetri(result, coord, index, begin))
-		if (loop == 0)
-			return (result);
-		else
-			return (try_to_place(begin, result, index + 1, 1));
-	else
-		return (NULL);
+	if (put_tetri(r, c, towrite + 'A', begin) &&
+			(try_to_place(begin, r, towrite - 1 - 'A', 0)))
+		return (1);
+	return (0);
 }
 
 static char	**calc_tab(size_t nb_tetri, size_t nb_try)
