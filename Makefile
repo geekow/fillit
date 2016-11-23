@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 11:02:51 by jjacobi           #+#    #+#              #
-#    Updated: 2016/11/23 19:47:14 by jjacobi          ###   ########.fr        #
+#    Updated: 2016/11/23 19:52:22 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,12 +43,12 @@ libft.a:
 clean:
 	@rm -rf $(OBJ)
 	@(cd $(LIBFT_PATH) && $(MAKE) $@)
-	@echo "$(RED).o $(DEFAULT) are now deleted for $(NAME)."
+	@echo "All $(RED).o $(DEFAULT) are now deleted for $(NAME)."
 
 fclean:
 	@rm -rf $(NAME) $(OBJ)
 	@(cd $(LIBFT_PATH) && $(MAKE) $@)
-	@echo "$(RED).o $(DEFAULT) are now deleted for $(NAME)."
+	@echo "All $(RED).o $(DEFAULT) are now deleted for $(NAME)."
 	@echo "$(RED)$(NAME)$(DEFAULT) deleted."
 
 re: fclean all

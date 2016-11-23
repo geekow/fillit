@@ -6,7 +6,7 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 11:02:51 by jjacobi           #+#    #+#              #
-#    Updated: 2016/11/22 17:03:54 by jjacobi          ###   ########.fr        #
+#    Updated: 2016/11/23 19:53:08 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@rm -rf $(OBJ)
-	@echo "All $(RED).o$(DEFAULT) are now deleted."
+	@echo "All $(RED).o$(DEFAULT) are now deleted for $(NAME)."
 
 fclean: clean
 	@rm -rf $(NAME)
