@@ -6,41 +6,39 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 16:26:50 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/22 19:22:25 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/11/23 06:08:20 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
 
-static int	rm_from_matrice(char **result, char to_rm, int force)
+static void	rm_from_matrice(char **result, char to_rm, int *pos, char c)
 {
 	size_t	i;
 	size_t	j;
+	int 	t;
 
+	t = 0;
 	i = 0;
-	if (to_rm >= 'A')
+	while (result[i])
 	{
-		while (result[i])
+		j = 0;
+		while (result[i][j])
 		{
-			j = 0;
-			while (result[i][j])
-				if (result[i][j++] == to_rm)
-				{
-					result[i][j - 1] = '.';
-					force = 0;
-				}
-			i++;
+			if (result[i][j] == to_rm)
+			{
+				result[i][j] = '.';
+				if (!t++)
+					*pos -= c;
+			}
+			j++;
 		}
-		if (force)
-			return (rm_from_matrice(result, to_rm - 1, 1));
-		else
-			return (to_rm);
+		i++;
 	}
-	return (0);
 }
 
-static int	already_placed(char **r, char to_find)
+static int		alr_pl(char **r, char to_find)
 {
 	size_t	i;
 	size_t	j;
@@ -60,34 +58,37 @@ static int	already_placed(char **r, char to_find)
 	return (0);
 }
 
-int			put_tetri(char **r, int c[4][2], char towrite, t_list **begin)
+int				put_tetri(int coord[4][2], char tow, char **result)
 {
-	size_t	p[2];
-	char	exit;
+	int	pos[2];
 
-	p[0] = 0;
-	exit = 0;
-	if (already_placed(r, towrite))
-		return (1);
-	while (r[p[0]] && !exit && !(p[1] = 0))
-	{
-		while (r[p[0]][p[1]] && !exit)
-			if (check_no_overflow(r, p, c))
-				exit = 1;
-			else if (check_and_put_tetri(r, p, c, towrite))
-				return (1);
-			else
-				p[1] = p[1] + 1;
-		p[0] = p[0] + 1;
-	}
-	exit = rm_from_matrice(r, towrite - 1, 0);
-	if (put_tetri(r, c, towrite + 'A', begin) &&
-			(try_to_place(begin, r, towrite - 1 - 'A', 0)))
-		return (1);
+	pos[0] = 0;
+	if (alr_pl(result, tow))
+		while (result[pos[0]] && !(pos[1] = 0))
+		{
+			while (result[pos[0]][pos[1]])
+				if (result[pos[0]][pos[1]++] == tow || !alr_pl(result, tow))
+				{
+					rm_from_matrice(result, tow, &pos[1], coord[0][1]);
+					if (check_and_put_tetri(result, pos, coord, tow))
+						return (1);
+				}
+			pos[0] = pos[0] + 1;
+		}
+	else
+		while (result[pos[0]] && !(pos[1] = 0))
+		{
+			while (result[pos[0]][pos[1]])
+				if (check_and_put_tetri(result, pos, coord, tow))
+					return (1);
+				else
+					pos[1] = pos[1] + 1;
+			pos[0] = pos[0] + 1;
+		}
 	return (0);
 }
 
-static char	**calc_tab(size_t nb_tetri, size_t nb_try)
+static char		**calc_tab(size_t nb_tetri, size_t nb_try)
 {
 	char	**result;
 	size_t	size;
@@ -115,7 +116,7 @@ static char	**calc_tab(size_t nb_tetri, size_t nb_try)
 	return (result);
 }
 
-void		fillit(t_list *list, size_t nb_tetri)
+void			fillit(t_list *list, size_t nb_tetri)
 {
 	char	**result;
 	size_t	index;
@@ -125,7 +126,7 @@ void		fillit(t_list *list, size_t nb_tetri)
 	while (!result)
 	{
 		result = calc_tab(nb_tetri, index++);
-		result = try_to_place(&list, result, 0, 1);
+		result = try_to_place(list, 'A', result);
 	}
 	index = 0;
 	while (result[index])
