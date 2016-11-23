@@ -6,14 +6,14 @@
 #    By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 11:02:51 by jjacobi           #+#    #+#              #
-#    Updated: 2016/11/22 18:27:03 by jjacobi          ###   ########.fr        #
+#    Updated: 2016/11/23 19:47:14 by jjacobi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= fillit
 
 CC			= gcc
-FLAGS		= -g -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror
 
 SRC_FILES	= main.c stock_tetri.c fillit.c try_to_place.c
 OBJ			= $(SRC_FILES:.c=.o)
