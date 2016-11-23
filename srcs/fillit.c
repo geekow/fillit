@@ -6,20 +6,18 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 16:26:50 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/23 20:39:37 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/11/24 00:00:07 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
 
-static void	rm_from_matrice(char **result, char to_rm, int *pos, int c)
+static void	rm_from_matrice(char **result, char to_rm)
 {
 	size_t	i;
 	size_t	j;
-	int 	t;
 
-	t = 0;
 	i = 0;
 	while (result[i])
 	{
@@ -27,11 +25,7 @@ static void	rm_from_matrice(char **result, char to_rm, int *pos, int c)
 		while (result[i][j])
 		{
 			if (result[i][j] == to_rm)
-			{
 				result[i][j] = '.';
-				if (!t++)
-					*pos -= c;
-			}
 			j++;
 		}
 		i++;
@@ -60,7 +54,8 @@ int			alr_pl(char **r, char to_find)
 
 int			move(int pos[2], char tow, char **result, int coord[4][2])
 {
-		rm_from_matrice(result, tow, &pos[1], coord[0][1]);
+		rm_from_matrice(result, tow);
+		pos[1] -= coord[0][1];
 		while (result[pos[0]])
 		{
 			while (result[pos[0]][pos[1]++] != '\n')
