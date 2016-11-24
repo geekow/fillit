@@ -128,6 +128,10 @@ t_list			*stock_tetri(char *filename, size_t *nb_tetri)
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		return (NULL);
 	if ((result = read_and_save(fd, nb_tetri)) == NULL)
+	{
+		close(fd);
 		return (NULL);
+	}
+	close(fd);
 	return (result);
 }
