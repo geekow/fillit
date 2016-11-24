@@ -100,16 +100,28 @@ static char	**calc_tab(size_t nb_tetri, size_t nb_try)
 void		fillit(t_list *list, size_t nb_tetri)
 {
 	char	**result;
+	size_t	counter;
 	size_t	index;
 
 	result = NULL;
-	index = 0;
+	counter = 0;
 	while (!result)
 	{
-		result = calc_tab(nb_tetri, index++);
-		result = try_to_place(list, 'A', result);
+		result = calc_tab(nb_tetri, counter++);
+		if (!try_to_place(list, 'A', result))
+		{
+			index = 0;
+			while (result[index])
+				free(result[index++]);
+			free(result);
+			result = NULL;
+		}
 	}
 	index = 0;
 	while (result[index])
+	{
 		ft_putstr(result[index++]);
+		free(result[index - 1]);
+	}
+	free(result);
 }
