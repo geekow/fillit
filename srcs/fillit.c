@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 16:26:50 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/24 00:00:07 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/11/24 17:00:36 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,19 @@ int			alr_pl(char **r, char to_find)
 
 int			move(int pos[2], char tow, char **result, int coord[4][2])
 {
-		rm_from_matrice(result, tow);
-		pos[1] -= coord[0][1];
-		while (result[pos[0]])
+	rm_from_matrice(result, tow);
+	pos[1] -= coord[0][1];
+	while (result[pos[0]])
+	{
+		while (result[pos[0]][pos[1]++] != '\n')
 		{
-			while (result[pos[0]][pos[1]++] != '\n')
-			{
-				if (check_and_put_tetri(result, pos, coord, tow))
-					return (1);
-			}
-			pos[1] = -1;
-			pos[0]++;
+			if (check_and_put_tetri(result, pos, coord, tow))
+				return (1);
 		}
-		return (0);
+		pos[1] = -1;
+		pos[0]++;
+	}
+	return (0);
 }
 
 static char	**calc_tab(size_t nb_tetri, size_t nb_try)

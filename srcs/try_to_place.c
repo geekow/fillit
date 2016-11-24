@@ -6,7 +6,7 @@
 /*   By: jjacobi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/22 18:22:18 by jjacobi           #+#    #+#             */
-/*   Updated: 2016/11/23 20:35:56 by jjacobi          ###   ########.fr       */
+/*   Updated: 2016/11/24 17:01:28 by jjacobi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	check_and_put_tetri(char **r, int p[2], int c[4][2], char towrite)
 		return (0);
 }
 
-int				put_tetri(int coord[4][2], char tow, char **result)
+int		put_tetri(int coord[4][2], char tow, char **result)
 {
 	int	pos[2];
 
